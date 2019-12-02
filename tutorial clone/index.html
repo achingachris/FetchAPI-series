@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="getText">Get Text</button>
+    <div id="output"></div>
+
+    <button id="getUsers">Get Users</button>
+
+</body>
+
+<script>
+    const getText = document.getElementById('getText');
+    const getuser = document.getElementById('getUsers');
+
+    getuser.addEventListener('click', gUser);
+
+    getText.addEventListener('click', gText);
+    function gText(){
+        // fetch('sample.txt')
+        // .then(function(res){
+        //     return res.text();
+        // })
+        // .then(function(data){
+        //     console.log(data);
+            
+        // });
+
+        // method 2
+        fetch('sample.txt')
+        .then((res) => res.text())
+        .then((data) => {
+            document.getElementById('output').innerHTML = data;
+        })
+    }
+
+    function gUser(){
+        fetch('users.json')
+        .then((res) => res.json())
+        .then((data) => {
+            let output = "<h2>Users</h2>";
+            data.forEach(function(user){
+                output += `
+                <ul>
+                    <li>ID: ${user.id} </li>
+                    <li>Name: ${user.name} </li>
+                    <li>Email: ${user.email} </li>
+                </ul>
+                `;
+            });
+            document.getElementById('output').innerHTML = output;
+        })
+    }
+</script>
+</html>
